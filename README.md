@@ -1,6 +1,6 @@
 # Gaussian-MOKIT-Molpro
 
-Gaussian-MOKIT-Molpro is a solution for invoking Molpro from Gaussian, which means one can do optimization, frequencies, or even irc tasks using the algorithm from Gaussian and at the level supported by Molpro.
+Gaussian-MOKIT-Molpro is a solution for invoking Molpro from Gaussian, which means one can do optimization, frequencies, or even irc tasks using the algorithms from Gaussian and at the levels supported by Molpro.
 
 ## Usage
 
