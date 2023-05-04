@@ -56,7 +56,7 @@ This is almost a standard Gaussian single point energy calculation file, while w
 
 This script only implements energy and gradients parsing. In order to do frequencies tasks, write `freq=num` in route section please.
 
-## Exampls
+## Examples
 
 ### Opt + Freq
 
