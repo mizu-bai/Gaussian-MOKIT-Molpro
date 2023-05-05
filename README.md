@@ -122,6 +122,14 @@ Title Card Required
 
 ```
 
+## Results
+
+Here is a simple test on HCN isomerization reaction.
+
+![](https://raw.githubusercontent.com/mizu-bai/Gaussian-MOKIT-Molpro/main/HCN-1.jpg)
+
+![](https://raw.githubusercontent.com/mizu-bai/Gaussian-MOKIT-Molpro/main/HCN-2.jpg)
+
 ## Acknowledgements
 
 This script is inspired by Tian Lu's work.
