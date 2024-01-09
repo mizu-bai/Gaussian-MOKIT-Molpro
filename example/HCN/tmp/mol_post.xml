@@ -10,9 +10,9 @@
     <cml:symmetry pointGroup="C1">
     </cml:symmetry>
     <cml:atomArray>
-     <cml:atom id="a1" elementType="C" x3="0.8156322E-01" y3="0.63278067" z3="0.0"/>
-     <cml:atom id="a2" elementType="N" x3="0.8156322E-01" y3="-0.57864479" z3="0.0"/>
-     <cml:atom id="a3" elementType="H" x3="-1.06032181" y3="0.25382948" z3="0.1E-02"/>
+     <cml:atom id="a1" elementType="C" x3="0.815604E-01" y3="0.63270852" z3="0.0"/>
+     <cml:atom id="a2" elementType="N" x3="0.815604E-01" y3="-0.57858337" z3="0.0"/>
+     <cml:atom id="a3" elementType="H" x3="-1.06028517" y3="0.25383251" z3="0.1E-02"/>
     </cml:atomArray>
     <cml:bondArray>
      <cml:bond atomRefs2="a1 a2"/>
@@ -20,70 +20,60 @@
      <cml:bond atomRefs2="a2 a3"/>
     </cml:bondArray>
    </cml:molecule>
-   <time start="13:09:58" end="13:09:58" cpu="0.63" system="0.36" real="1.12"/>
+   <time start="18:17:53" end="18:17:54" cpu="0.64" system="0.44" real="1.22"/>
    <storage units="megabyte" memory="0.0" sf="0.0" df="131.77" eaf="20.46" ga="0.0"/>
   </jobstep>
   <jobstep command="HF-SCF" commandset="SCFPRO">
    <property name="Energy" method="RHF" principal="true" stateSymmetry="1" stateNumber="1"
-     value="-92.8112720325428"/>
+     value="-92.8112906850816"/>
    <property name="Dipole moment" method="RHF" principal="true" stateSymmetry="1"
      stateNumber="1"
-     value="-0.51331568401795 0.281064436247753E-01 0.449533736415349E-03"/>
-   <time start="13:09:58" end="13:09:58" cpu="0.07" system="0.01" real="0.08"/>
+     value="-0.513368480564628 0.280665399424738E-01 0.449595525406679E-03"/>
+   <time start="18:17:54" end="18:17:54" cpu="0.05" system="0.01" real="0.06"/>
    <storage units="megabyte" memory="0.0" sf="0.01" df="131.94" eaf="20.46" ga="0.0"/>
   </jobstep>
   <jobstep command="RHF-SCF" commandset="SCFPRO">
    <property name="Energy" method="RHF" principal="true" stateSymmetry="1" stateNumber="1"
-     value="-92.8112720325857"/>
+     value="-92.8112906852564"/>
    <property name="Dipole moment" method="RHF" principal="true" stateSymmetry="1"
      stateNumber="1"
-     value="-0.513315680223262 0.281064873116172E-01 0.449533820385339E-03"/>
-   <time start="13:09:59" end="13:09:59" cpu="0.58" system="0.06" real="0.73"/>
+     value="-0.513368476998013 0.280665835297722E-01 0.449595635826837E-03"/>
+   <time start="18:17:54" end="18:17:55" cpu="0.66" system="0.06" real="0.79"/>
    <storage units="megabyte" memory="0.0" sf="0.01" df="142.45" eaf="20.52" ga="0.0"/>
   </jobstep>
   <jobstep command="DF-CCSD(T)" commandset="CCSD">
-   <time start="13:09:59" end="13:10:00" cpu="0.74" system="0.14" real="0.89"/>
-   <storage units="megabyte" memory="0.0" sf="56.42" df="142.45" eaf="20.52" ga="0.0"/>
+   <property name="Dipole moment" method="CCSD(T)" principal="true" stateSymmetry="1"
+     stateNumber="1"
+     value="-0.455047688807251 0.457708436285781E-01 0.398519551099508E-03"/>
+   <time start="18:17:55" end="18:17:58" cpu="2.43" system="0.36" real="2.79"/>
+   <storage units="megabyte" memory="0.0" sf="154.59" df="143.27" eaf="20.52" ga="0.0"/>
+  </jobstep>
+  <jobstep command="FORCE" commandset="FORCES">
+   <gradient name="DF-CCSD(T) GRADIENT" stateSymmetry="1" stateNumber="1"
+     virial="0.47489176422598E-03">
+      0.000049601737   0.000083259256  -0.000000043453
+      0.000069969151  -0.000099980519  -0.000000061200
+     -0.000119570888   0.000016721264   0.000000104652
+   </gradient>
+   <time start="18:17:58" end="18:17:58" cpu="0.02" system="0.01" real="0.03"/>
+   <storage units="megabyte" memory="0.0" sf="154.59" df="143.27" eaf="20.52" ga="0.0"/>
   </jobstep>
 <table xmlns="http://www.w3.org/1999/xhtml" id="table1">
 <thead><tr><th>ENERGY</th></tr></thead><tbody>
-<tr><td>   -93.13110730</td></tr>
+<tr><td>   -93.13110733</td></tr>
 </tbody></table>
-  <jobstep command="FORCE" commandset="FORCES">
-   <gradient name="DF-CCSD(T)" stateSymmetry="1" stateNumber="1"
-     virial="0.477689358408457E-03">
-      0.000055410289   0.000079570254  -0.000000048525
-      0.000061999933  -0.000106381669  -0.000000054296
-     -0.000117410222   0.000026811415   0.000000102821
-   </gradient>
-   <jobstep command="RHF-SCF" commandset="SCFPRO">
-    <property name="Energy" method="RHF" principal="true" stateSymmetry="1" stateNumber="1"
-      value="-92.8112720325858"/>
-    <property name="Dipole moment" method="RHF" principal="true" stateSymmetry="1"
-      stateNumber="1"
-      value="-0.513315677695475 0.28106446910077E-01 0.449533860311474E-03"/>
-    <time start="13:10:07" end="13:10:08" cpu="0.77" system="0.07" real="0.84"/>
-    <storage units="megabyte" memory="0.0" sf="56.42" df="398.72" eaf="20.52" ga="0.0"/>
-   </jobstep>
-   <jobstep command="DF-CCSD(T)" commandset="CCSD">
-    <time start="13:10:08" end="13:10:08" cpu="0.74" system="0.09" real="0.83"/>
-    <storage units="megabyte" memory="0.0" sf="56.42" df="398.72" eaf="20.52" ga="0.0"/>
-   </jobstep>
-   <time start="13:10:00" end="13:10:08" cpu="6.46" system="1.96" real="8.41"/>
-   <storage units="megabyte" memory="0.0" sf="56.42" df="398.72" eaf="20.52" ga="0.0"/>
-  </jobstep>
 <table xmlns="http://www.w3.org/1999/xhtml" id="table2">
 <thead><tr><th>GRADX   </th><th>GRADY   </th><th>GRADZ   </th></tr></thead><tbody>
-<tr><td>    5.54102893D-05</td><td>    7.95702537D-05</td><td>   -4.85252787D-08</td></tr>
-<tr><td>    6.19999328D-05</td><td>   -1.06381669D-04</td><td>   -5.42961254D-08</td></tr>
-<tr><td>   -1.17410222D-04</td><td>    2.68114153D-05</td><td>    1.02821404D-07</td></tr>
+<tr><td>    4.96017371D-05</td><td>    8.32592555D-05</td><td>   -4.34525523D-08</td></tr>
+<tr><td>    6.99691505D-05</td><td>   -9.99805191D-05</td><td>   -6.11995519D-08</td></tr>
+<tr><td>   -1.19570888D-04</td><td>    1.67212636D-05</td><td>    1.04652104D-07</td></tr>
 </tbody></table>
 <table xmlns="http://www.w3.org/1999/xhtml" id="table3">
 <thead><tr><th>DMX</th><th>DMY</th><th>DMZ</th></tr></thead><tbody>
-<tr><td>   0.0</td><td>   0.0</td><td>   0.0</td></tr>
+<tr><td>   -0.45504769</td><td>   0.04577084</td><td>   0.00039852</td></tr>
 </tbody></table>
   <stm:metadataList>
-   <stm:metadata name="dc:date" content="2024-01-09T13:10:09+08:00"/>
+   <stm:metadata name="dc:date" content="2024-01-09T18:17:58+08:00"/>
    <stm:metadata name="dc:creator" content="jh-li"/>
    <stm:metadata name="dc:title" content="generated by utility bas_gms2molpro of MOKIT"/>
    <stm:metadata name="cmlm:insilico" content="Molpro"/>
@@ -92,8 +82,8 @@
    <version major="2020" minor="2" SHA="22bccd25a381dbf876c72b275da5fa87c949c8a9"
      integer_bits="64" parallelism="mpp">
     2020.2
-    <date year="2024" month="1" day="9" hour="13" minute="9" second="58">
-     2024-01-09T13:09:58
+    <date year="2024" month="1" day="9" hour="18" minute="17" second="53">
+     2024-01-09T18:17:53
     </date>
    </version>
    <licence id="ljcqu"/>
@@ -105,9 +95,9 @@
    <p>***,generated by utility bas_gms2molpro of MOKIT</p>
    <p>symmetry,nosym,noorient</p>
    <p>geometry={</p>
-   <p>C1              0.08156322        0.63278067        0.00000000</p>
-   <p>N1              0.08156322       -0.57864479        0.00000000</p>
-   <p>H1             -1.06032181        0.25382948        0.00100000</p>
+   <p>C1              0.08156040        0.63270852        0.00000000</p>
+   <p>N1              0.08156040       -0.57858337        0.00000000</p>
+   <p>H1             -1.06028517        0.25383251        0.00100000</p>
    <p>}</p>
    <p>basis={</p>
    <p>! C</p>
@@ -154,8 +144,8 @@
    <p>basis=avdz</p>
    <p>{rhf;}</p>
    <p>{df-ccsd(t)}</p>
-   <p>{table,energy;save,energy.csv,new;}</p>
    <p>{force;varsav;}</p>
+   <p>{table,energy;save,energy.csv,new;}</p>
    <p>{table,gradx,grady,gradz;save,grad.csv,new;}</p>
    <p>{table,dmx,dmy,dmz;save,dipole.csv,new;}</p>
   </input>

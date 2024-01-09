@@ -124,13 +124,13 @@ if __name__ == "__main__":
         for cmd in config.m_cmds:
             f.write(f"{cmd}\n")
 
+        if derivs == 1:
+            f.writelines("{force;varsav;}\n")
+
         f.writelines("{table,energy;save,energy.csv,new;}\n")
 
         if derivs == 1:
-            f.writelines([
-                "{force;varsav;}\n",
-                "{table,gradx,grady,gradz;save,grad.csv,new;}\n",
-            ])
+            f.writelines("{table,gradx,grady,gradz;save,grad.csv,new;}\n")
 
         f.writelines("{table,dmx,dmy,dmz;save,dipole.csv,new;}\n")
 
