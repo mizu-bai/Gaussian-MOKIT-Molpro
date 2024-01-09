@@ -1,0 +1,16 @@
+{
+    "Gaussian": {
+        "nproc": 4,
+        "memory": "16GB",
+        "level": "#p rohf aug-cc-pvdz nosymm int=(nobasistransform)"
+    },
+    "Molpro": {
+        "nproc": 4,
+        "memory": "500M",
+        "commands": [
+            "basis=avdz",
+            "{rhf;}",
+            "{df-ccsd(t)}"
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+%nproc=4
+%mem=16GB
+%chk=mol_rohf.chk
+#p rohf aug-cc-pvdz nosymm int=(nobasistransform)
+
+ROHF TASK
+
+0 1
+C        0.08156322       0.63278067       0.00000000
+N        0.08156322      -0.57864479      -0.00000000
+H       -1.06032181       0.25382948       0.00100000
+
+

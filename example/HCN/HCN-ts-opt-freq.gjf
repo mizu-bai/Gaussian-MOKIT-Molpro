@@ -1,0 +1,23 @@
+%nproc=1
+%chk=HCN-ts-opt-freq.chk
+#p external="python3 -u ../../src/gmm.py" freq=num
+
+Title Card Required
+
+0 1
+ C                  0.56314246   -0.57635434    0.00000000
+ N                 -0.37519999    0.35694724    0.00000000
+ H                 -0.79524238   -1.09345422    0.00000000
+
+
+--link1--
+%nproc=1
+%chk=HCN-ts-opt-freq.chk
+#p external="python3 -u ../../src/gmm.py" opt=(rcfc,noeigen,nomicro,ts) geom=allcheck
+
+
+--link1--
+%nproc=1
+%chk=HCN-ts-opt-freq.chk
+#p external="python3 -u ../../src/gmm.py" freq=num geom=allcheck
+
