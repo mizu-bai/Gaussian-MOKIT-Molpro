@@ -138,7 +138,7 @@ This script is inspired by Tian Lu's work.
 
 ## Bug Report
 
-- Mail: [shiragawa4519@outlook.com](shiragawa4519@outlook.com)
+- Mail: <a href="mailto:shiragawa4519@outlook.com" target="_top">shiragawa4519@outlook.com</a>
 - Issue: [https://github.com/mizu-bai/Gaussian-MOKIT-Molpro/issues/new](https://github.com/mizu-bai/Gaussian-MOKIT-Molpro/issues/new)
 - Forum: [http://bbs.keinsci.com/thread-33837-1-1.html](http://bbs.keinsci.com/thread-33837-1-1.html)
 
