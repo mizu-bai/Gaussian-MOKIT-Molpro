@@ -131,3 +131,17 @@ This script is inspired by Tian Lu's work.
 
 - [将Gaussian与Grimme的xtb程序联用搜索过渡态、产生IRC、做振动分析](http://sobereva.com/421)
 - [将Gaussian与ORCA联用搜索过渡态、产生IRC、做振动分析](http://sobereva.com/422)
+
+## Bug Report
+
+- Mail: <a href="mailto:shiragawa4519@outlook.com" target="_top">shiragawa4519@outlook.com</a>
+- Issue: [https://github.com/mizu-bai/Gaussian-MOKIT-Molpro/issues/new](https://github.com/mizu-bai/Gaussian-MOKIT-Molpro/issues/new)
+- Forum: [http://bbs.keinsci.com/thread-33837-1-1.html](http://bbs.keinsci.com/thread-33837-1-1.html)
+
+## Citation
+
+If Gaussian-MOKIT-Molpro is invoked in your work, please cite this repo as
+
+> Junhong Li, Gaussian-MOKIT-Molpro, [https://github.com/mizu-bai/Gaussian-MOKIT-Molpro](https://github.com/mizu-bai/Gaussian-MOKIT-Molpro) (accessed month day, year)
+
+Please also cite Gaussian, MOKIT, and Molpro. For citation info, refer to their websites.
