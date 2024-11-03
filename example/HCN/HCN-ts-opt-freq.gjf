@@ -1,6 +1,6 @@
 %nproc=1
 %chk=HCN-ts-opt-freq.chk
-#p external="python3 -u ../../src/gmm.py" freq=num
+#p external="python3 -u ../../src/gmm.py" freq=num nosymm
 
 Title Card Required
 
@@ -13,11 +13,11 @@ Title Card Required
 --link1--
 %nproc=1
 %chk=HCN-ts-opt-freq.chk
-#p external="python3 -u ../../src/gmm.py" opt=(rcfc,noeigen,nomicro,ts) geom=allcheck
+#p external="python3 -u ../../src/gmm.py" opt=(rcfc,noeigen,nomicro,ts) geom=allcheck nosymm
 
 
 --link1--
 %nproc=1
 %chk=HCN-ts-opt-freq.chk
-#p external="python3 -u ../../src/gmm.py" freq=num geom=allcheck
+#p external="python3 -u ../../src/gmm.py" freq=num geom=allcheck nosymm
 

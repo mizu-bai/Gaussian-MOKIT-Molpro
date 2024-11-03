@@ -1,16 +1,11 @@
 {
-    "Gaussian": {
-        "nproc": 4,
-        "memory": "16GB",
-        "level": "#p rohf aug-cc-pvdz nosymm int=(nobasistransform)"
-    },
-    "Molpro": {
-        "nproc": 4,
-        "memory": "500M",
-        "commands": [
-            "basis=avdz",
-            "{rhf;}",
-            "{df-ccsd(t)}"
-        ]
-    }
+    "num_proc": 4,
+    "mem": "8GB",
+    "basis_set": "cc-pVDZ",
+    "rohf_runner": "pyscf",
+    "post_hf": [
+        "basis=vdz",
+        "{rhf;}",
+        "{ccsd(t);}"
+    ]
 }

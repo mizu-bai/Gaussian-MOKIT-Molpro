@@ -2,53 +2,32 @@
 import json
 import os
 import re
-import sys
 from dataclasses import dataclass
 from io import StringIO
 from typing import List
 
-import numpy as np
 import pandas as pd
 
-# constants
-ANG2BOHR = 1.8897259886
-
-ELEMENTS = [
-    "Bq",
-    "H ",                                                                                                                                                                                     "He",
-    "Li", "Be",                                                                                                                                                 "B ", "C ", "N ", "O ", "F ", "Ne",
-    "Na", "Mg",                                                                                                                                                 "Al", "Si", "P ", "S ", "Cl", "Ar",
-    "K ", "Ca", "Sc", "Ti", "V ", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn",                                                                                     "Ga", "Ge", "As", "Se", "Br", "Kr",
-    "Rb", "Sr", "Y ", "Zr", "Nb", "Mo", "Te", "Ru", "Rh", "Pd", "Ag", "Cd",                                                                                     "In", "Sn", "Sb", "Te", "I ", "Xe",
-    "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta", "W ", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At", "Rn",
-    "Fr", "Ra", "Ac", "Th", "Pa", "U ", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og",
-]
+import subprocess
+from lib import GauDriver, ROHFRunnerFactory
+import shlex
+import shutil
 
 
 @dataclass
 class Config:
-    g_nproc: int
-    g_mem: str
-    g_level: str
-    m_nproc: int
-    m_mem: str
-    m_cmds: List[str]
+    num_proc: int
+    mem: str
+    basis_set: str
+    rohf_runner: str
+    post_hf: List[str]
 
+    @classmethod
+    def from_json(cls) -> "Config":
+        with open("gmm.json") as f:
+            json_data = json.load(f)
 
-def _load_settings():
-    with open("gmm.json") as fo:
-        settings = json.load(fo)
-
-    config = Config(
-        g_nproc=settings["Gaussian"]["nproc"],
-        g_mem=settings["Gaussian"]["memory"],
-        g_level=settings["Gaussian"]["level"],
-        m_nproc=settings["Molpro"]["nproc"],
-        m_mem=settings["Molpro"]["memory"],
-        m_cmds=settings["Molpro"]["commands"]
-    )
-
-    return config
+        return cls(**json_data)
 
 
 def _D2E(filename):
@@ -63,113 +42,99 @@ def _D2E(filename):
 
 if __name__ == "__main__":
     # load config json
-    config = _load_settings()
-
-    # prepare Gaussian ROHF calculation input file templete
-    rohf_contents = (
-        f"%nproc={config.g_nproc}\n"
-        f"%mem={config.g_mem}\n"
-        f"%chk=mol_rohf.chk\n"
-        f"{config.g_level}\n"
-        f"\n"
-        "ROHF TASK\n"
-        f"\n"
-    )
+    config = Config.from_json()
 
     # parse Gaussian args
-    (layer, InputFile, OutputFile, MsgFile, FChkFile, MatElFile) = sys.argv[1:]
+    gau_driver = GauDriver.from_stdio()
 
-    with open(InputFile, "r") as f:
-        # parse atom
-        (atoms, derivs, charge, spin) = [int(x) for x in f.readline().split()]
+    # prepare workdir
+    workdir = os.path.abspath("tmp")
 
-        # append to rohf contents
-        rohf_contents += f"{charge} {spin}\n"
+    if os.path.exists(workdir):
+        shutil.rmtree(workdir)
 
-        for i in range(atoms):
-            arr = f.readline().split()
-            tmp = [ELEMENTS[int(arr[0])]]
-            tmp += [f"{(float(x) / ANG2BOHR):13.8f}" for x in arr[1:4]]
-            rohf_contents += "    ".join(tmp)
-            rohf_contents += "\n"
+    os.makedirs(workdir)
 
-        rohf_contents += "\n\n"
+    # prepare xyz file
+    xyz_file = os.path.abspath(os.path.join(workdir, "mol.xyz"))
+    with open(xyz_file, "w") as f:
+        print(gau_driver.xyz(), file=f)
 
-    curr_dir = os.getcwd()
-    curr_dir = os.path.abspath(curr_dir)
+    # perform ROHF calculation
+    ROHFRunner = ROHFRunnerFactory.get(config.rohf_runner)
 
-    if not os.path.exists("tmp"):
-        os.mkdir("tmp")
-
-    os.chdir("tmp")
-
-    # write rohf input file
-    with open("mol_rohf.gjf", "w") as f:
-        f.write(rohf_contents)
-
-    print(">>> Starting ROHF Calculation...")
-
-    os.system("g16 mol_rohf.gjf")
-    os.system("formchk mol_rohf.chk")
-
-    print(">>> ROHF Calculation Done!")
-
-    print(">>> Preparing Molpro input file...")
-
-    os.system("fch2com mol_rohf.fchk")
-    os.system("mv mol_rohf.com mol_post.com")
-
-    # add addtional molpro calculation procedures
-    with open("mol_post.com", "a") as f:
-        for cmd in config.m_cmds:
-            f.write(f"{cmd}\n")
-
-        if derivs == 1:
-            f.writelines("{force;varsav;}\n")
-
-        f.writelines("{table,energy;save,energy.csv,new;}\n")
-
-        if derivs == 1:
-            f.writelines("{table,gradx,grady,gradz;save,grad.csv,new;}\n")
-
-        f.writelines("{table,dmx,dmy,dmz;save,dipole.csv,new;}\n")
-
-    print(">>> Starting Molpro Calculation...")
-
-    os.system(f"molpro -s -n {config.m_nproc} -m {config.m_mem} mol_post.com")
-
-    print(">>> Molpro Calculation Done!")
-
-    # extract molpro output file
-    print(">>> Extracting Molpro output file ...")
-
-    output_contents = []
-
-    df_energy = pd.read_csv(_D2E("energy.csv"))
-    energy = df_energy.values.tolist()[0][0]
-
-    df_dipole = pd.read_csv(_D2E("dipole.csv"))
-    dipole = df_dipole.values.tolist()[0]
-
-    output_contents = []
-
-    output_contents.append(
-        f"{energy:20.12E}"
-        f"{dipole[0]:20.12E}{dipole[1]:20.12E}{dipole[2]:20.12E}"
+    rohf_runner = ROHFRunner(
+        num_proc=config.num_proc,
+        mem=config.mem,
+        basis_set=config.basis_set,
+        charge=gau_driver.charge,
+        spin=gau_driver.multiplicity,
+        xyz=xyz_file,
+        workdir=workdir,
     )
 
-    if derivs == 1:
-        df_grad = pd.read_csv(_D2E("grad.csv"))
-        grad = df_grad.values.tolist()
-        for grad_on_atom in grad:
-            output_contents.append(
-                "".join([f"{g:20.12E}" for g in grad_on_atom])
+    rohf_runner.run()
+
+    # prepare molpro input file
+    subprocess.run(
+        args=shlex.split("fch2com mol_rohf.fchk"),
+        cwd=workdir,
+    )
+
+    os.rename(
+        os.path.join(workdir, "mol_rohf.com"),
+        os.path.join(workdir, "mol_post.com"),
+    )
+
+    with open(os.path.join(workdir, "mol_post.com"), "a") as f_com:
+        for cmd in config.post_hf:
+            print(cmd, file=f_com)
+
+        if gau_driver.derivs == 1:
+            print("{force;varsav;}", file=f_com)
+
+        print("{table,energy;save,energy.csv,new;}", file=f_com)
+
+        if gau_driver.derivs == 1:
+            print(
+                "{table,gradx,grady,gradz;save,grad.csv,new;}",
+                file=f_com,
             )
 
-    output_contents = "\n".join(output_contents)
+    # perform molpro calculation
+    mem_mw = ""
 
-    # write output
-    with open(OutputFile, "w") as f:
-        f.write(output_contents)
+    if "GB" in config.mem:
+        mem_mb = int(config.mem.replace("GB", "")) * 1024
+    elif "MB" in config.mem:
+        mem_mb = int(config.mem.replace("MB", ""))
+    else:
+        raise ValueError(f"Unsupported memory setting {config.mem}")
 
-    print(">>> Done!")
+    mem_mw = int(mem_mb / (8 * config.num_proc))
+
+    subprocess.run(
+        args=shlex.split(
+            f"molpro -s -n {config.num_proc} -t 1 -m {mem_mw}m mol_post.com"
+        ),
+        stderr=subprocess.STDOUT,
+        cwd=workdir,
+    )
+
+    # parse energy and gradients from molpro output
+
+    with open(gau_driver.output_file, "w") as f:
+        energy_csv = os.path.join(workdir, "energy.csv")
+        energy = pd.read_csv(_D2E(energy_csv)).values[0, 0]
+
+        grad = None
+
+        if gau_driver.derivs == 1:
+            grad_csv = os.path.join(workdir, "grad.csv")
+            grad = pd.read_csv(_D2E(grad_csv)).values
+
+        gau_driver.write(
+            energy=energy,
+            gradients=grad,
+            force_constants=None,
+        )

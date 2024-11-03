@@ -1,0 +1,51 @@
+
+
+******** <class 'pyscf.scf.rohf.ROHF'> ********
+method = ROHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+diis_damp = 0
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 200
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /tmp/tmppwq2amhd
+max_memory 8192 MB (current use 101 MB)
+num. doubly occ = 7  num. singly occ = 0
+Set gradient conv threshold to 3.16228e-05
+init E= -92.8626767801974
+  HOMO = -0.287286275287444  LUMO = 0.0077778098560079
+cycle= 1 E= -92.7803674950299  delta_E= 0.0823  |g|= 0.266  |ddm|=  1.2
+  HOMO = -0.511017335343404  LUMO = 0.086631929036728
+cycle= 2 E= -92.8017222820256  delta_E= -0.0214  |g|= 0.116  |ddm|= 0.201
+  HOMO = -0.487874367161565  LUMO = 0.100053023387927
+cycle= 3 E= -92.8047463836824  delta_E= -0.00302  |g|= 0.051  |ddm|= 0.0745
+  HOMO = -0.489448371550102  LUMO = 0.11088289131695
+cycle= 4 E= -92.8056354411885  delta_E= -0.000889  |g|= 0.0175  |ddm|= 0.0322
+  HOMO = -0.491549388954024  LUMO = 0.109717851506913
+cycle= 5 E= -92.8058508995184  delta_E= -0.000215  |g|= 0.00678  |ddm|= 0.0175
+  HOMO = -0.491226499774919  LUMO = 0.110680978308303
+cycle= 6 E= -92.8059265434994  delta_E= -7.56e-05  |g|= 0.00214  |ddm|= 0.0138
+  HOMO = -0.491425713112576  LUMO = 0.110994121039027
+cycle= 7 E= -92.8059339117652  delta_E= -7.37e-06  |g|= 0.000447  |ddm|= 0.00523
+  HOMO = -0.49131632389915  LUMO = 0.111062945108025
+cycle= 8 E= -92.8059340446127  delta_E= -1.33e-07  |g|= 0.000166  |ddm|= 0.000587
+  HOMO = -0.491339811306176  LUMO = 0.111057669596579
+cycle= 9 E= -92.8059340590468  delta_E= -1.44e-08  |g|= 3.53e-05  |ddm|= 0.000226
+  HOMO = -0.491340055005759  LUMO = 0.111057183640518
+cycle= 10 E= -92.8059340599138  delta_E= -8.67e-10  |g|= 9.66e-06  |ddm|= 5.71e-05
+  HOMO = -0.491339128464248  LUMO = 0.111057396797566
+Extra cycle  E= -92.8059340599919  delta_E= -7.81e-11  |g|= 5.63e-06  |ddm|= 9.77e-06
+converged SCF energy = -92.8059340599919
+<class 'pyscf.scf.rohf.ROHF'> wavefunction is stable in the internal stability analysis
+<class 'pyscf.soscf.newton_ah.SecondOrderROHF'> wavefunction is stable in the internal stability analysis
+-------------------------------------------------------------------------------
+Remark from subroutine py2fch: natorb=.False. and gen_density=.True. found. The
+Total SCF Density will be calculated based on the occupation numbers according
+to the aufbau principle.
+-------------------------------------------------------------------------------
