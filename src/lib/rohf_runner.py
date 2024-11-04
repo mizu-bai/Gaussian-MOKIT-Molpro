@@ -1,13 +1,12 @@
-from abc import ABC, abstractmethod
 import os
-import shutil
 import shlex
+import shutil
+import subprocess
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
 from typing import List, Literal
 
-from dataclasses import dataclass
-import subprocess
 import numpy as np
-
 
 _BASE_NAME = "mol_rohf"
 
@@ -186,6 +185,8 @@ for i in range(10):
     mo1 = mf.stability()[0]
     dm1 = mf.make_rdm1(mo1, mf.mo_occ)
     mf = mf.newton()
+    new_e = mf.kernel(dm0=dm1)
+
     if abs(new_e - old_e) < 1.0e-05:
         break  # cannot find lower solution
 
