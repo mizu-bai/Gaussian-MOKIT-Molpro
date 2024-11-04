@@ -144,4 +144,4 @@ If Gaussian-MOKIT-Molpro is invoked in your work, please cite this repo as
 
 > Junhong Li, Gaussian-MOKIT-Molpro, [https://github.com/mizu-bai/Gaussian-MOKIT-Molpro](https://github.com/mizu-bai/Gaussian-MOKIT-Molpro) (accessed month day, year)
 
-Please also cite Gaussian, MOKIT, and Molpro. For citation info, refer to their websites.
+Please also cite Gaussian, PySCF, MOKIT, and Molpro. For citation info, refer to their websites.
