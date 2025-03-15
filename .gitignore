@@ -1,6 +1,12 @@
 # exp
 exp/
 
+# tmp
+tmp/
+
+# Gaussian
+fort.7
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

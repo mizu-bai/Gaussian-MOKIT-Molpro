@@ -3,7 +3,7 @@ import shlex
 import shutil
 import subprocess
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Literal
 
 import numpy as np
@@ -79,19 +79,17 @@ class ROHFRunner(ABC):
         pass
 
 
+@dataclass
 class GauROHFRunner(ROHFRunner):
-    gau_exe: str  # path to Gaussian executable
+    gau_exe: str = field(default="")  # path to Gaussian executable
 
-    def __init__(self) -> None:
-        if shutil.which("g16") and shutil.which("g09"):
-            raise RuntimeError("Both g16 and g09 are found in $PATH!")
-
+    def __post_init__(self) -> None:
         if shutil.which("g16"):
             self.gau_exe = "g16"
         elif shutil.which("g09"):
             self.gau_exe = "g09"
         else:
-            raise RuntimeError("No g16 or g09 found in $PATH!")
+            raise RuntimeError("Neither g16 nor g09 found in $PATH!")
 
     def _prepare_gjf(self):
         xyz = os.path.abspath(self.xyz)
@@ -145,6 +143,7 @@ Gaussian ROHF Runner
         self._exe()
 
 
+@dataclass
 class PySCFROHFRunner(ROHFRunner):
     def _prepare_input(self):
         _mem = ""

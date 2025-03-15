@@ -2,16 +2,16 @@
 import json
 import os
 import re
+import shlex
+import shutil
+import subprocess
 from dataclasses import dataclass
 from io import StringIO
 from typing import List
 
 import pandas as pd
 
-import subprocess
 from lib import GauDriver, ROHFRunnerFactory
-import shlex
-import shutil
 
 
 @dataclass
@@ -121,8 +121,7 @@ if __name__ == "__main__":
         cwd=workdir,
     )
 
-    # parse energy and gradients from molpro output
-
+    # extract energy and gradients from molpro output
     with open(gau_driver.output_file, "w") as f:
         energy_csv = os.path.join(workdir, "energy.csv")
         energy = pd.read_csv(_D2E(energy_csv)).values[0, 0]

@@ -1,0 +1,11 @@
+{
+    "num_proc": 4,
+    "mem": "8GB",
+    "basis_set": "cc-pVDZ",
+    "rohf_runner": "gau",
+    "post_hf": [
+        "basis=vdz",
+        "{rhf;}",
+        "{ccsd(t);}"
+    ]
+}
