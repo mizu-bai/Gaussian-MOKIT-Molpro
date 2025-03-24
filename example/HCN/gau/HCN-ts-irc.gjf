@@ -1,0 +1,4 @@
+%nproc=1
+%oldchk=HCN-ts-opt-freq.chk
+#p external="python3 -u ../../../src/gmm.py" irc=(rcfc,gradientonly) geom=allcheck
+
